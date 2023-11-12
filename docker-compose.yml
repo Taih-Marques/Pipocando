@@ -1,0 +1,48 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  app:
+    image: node:lts-alpine
+    depends_on:
+      - database
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src:rw
+    env_file:
+      - .env
+    environment:
+      DB_HOST: database
+    ports:
+      - 8080:${PORT}
+    command:
+      - npx
+      - nodemon
+      - -L
+      - app.js
+
+  database:
+    image: mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    # command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./app/resources/init.sql:/docker-entrypoint-initdb.d/1.sql
+    ports:
+      - 3306:3306
+  # npm:
+  #   image: node:lts-alpine
+  #   working_dir: /tmp/app
+  #   volumes:
+  #     - .:/tmp/app:rw
+  #   entrypoint:
+  #     - npm
+
+volumes:
+  mysql: ~

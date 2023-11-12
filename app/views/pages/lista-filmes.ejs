@@ -1,0 +1,19 @@
+<%- include('../partials/head') %>
+    <%- include('../partials/header') %>
+
+        <body>
+            <ul>
+                <% filmes.forEach((filme)=> { %>
+                    <li>
+                        <h2>
+                            <%= filme.nome %>
+                        </h2>
+                        <p>
+                            <%= filme.ano_lancamento %>
+                        </p>
+                    </li>
+                    <hr />
+                    <% }) %>
+            </ul>
+        </body>
+        <%- include('../partials/footer') %>
