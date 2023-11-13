@@ -1,10 +1,11 @@
 const Filme = require("../models/filme.model.js");
+const Avaliacao = require("../models/avaliacao.model.js");
 
 exports.criar = (req, res) => {
     // validar requisição
     if (!req.body) {
         res.status(400).send({
-            message: "Conteúdo não pode ser vazio"
+            message: "Conteúdo não pode ser vazio!"
         });
     }
 
@@ -42,9 +43,10 @@ exports.buscar = (req, res) => {
     });
 };
 
-exports.buscarPorId = (req, res) => {
-    Filme.buscarPorId(req.params.id, (err, data) => {
+exports.buscarPaginaFilme = (req, res) => {
+    Filme.buscarPorId(req.params.id, (err, filme) => {
         if (err) {
+            // mudar res.status para res.render com página de erro
             if (err.codigo === 404) {
                 res.status(404).send({
                     message: `Não encontrado filme com o id: ${req.params.id}.`
@@ -54,6 +56,24 @@ exports.buscarPorId = (req, res) => {
                     message: "Erro ao buscar filme com o id: " + req.params.id
                 });
             }
-        } else res.send(data);
+            return;
+        }
+
+        Avaliacao.buscarAvaliacoes(filme.id, (err, avaliacoes) => {
+            if (err) {
+                res.status(500).send({
+                    message: "Erro ao buscar avaliações do filme com o id: " + req.params.id
+                });
+                return;
+            }
+
+            res.render('pages/filme', {
+                filme: filme,
+                avaliacoes: avaliacoes,
+                title: filme.nome
+            });
+        })
     });
+
+    Filme.buscar
 };

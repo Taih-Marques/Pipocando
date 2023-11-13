@@ -12,7 +12,7 @@ const Filme = function (filme) {
 
 Filme.criar = (filme, callback) => {
   sql.query(
-    "INSERT INTO filme (nome, sinopse, ano_lancamento, id_diretor, banner) VALUES (?, ?, ?, ?, ?)"
+    "INSERT INTO filme (nome, sinopse, ano_lancamento, id_diretor, banner) VALUES (?, ?, ?, ?, ?)",
     [filme.nome, filme.sinopse, filme.ano_lancamento, filme.id_diretor, filme.banner],
     (err, res) => {
       if (err) {

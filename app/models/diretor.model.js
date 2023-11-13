@@ -37,4 +37,4 @@ Diretor.buscaPorId = (id, callback) => {
   });
 };
 
-module.exports = Tutorial;
+module.exports = Diretor;

@@ -5,12 +5,14 @@
             <ul>
                 <% filmes.forEach((filme)=> { %>
                     <li>
-                        <h2>
-                            <%= filme.nome %>
-                        </h2>
-                        <p>
-                            <%= filme.ano_lancamento %>
-                        </p>
+                        <a href="/filmes/<%=filme.id%>">
+                            <h2>
+                                <%= filme.nome %>
+                            </h2>
+                            <p>
+                                <%= filme.ano_lancamento %>
+                            </p>
+                        </a>
                     </li>
                     <hr />
                     <% }) %>

@@ -49,21 +49,21 @@ CREATE TABLE filme(
   sinopse text (2000) NOT NULL,
   ano_lancamento date NOT NULL,
   id_diretor int(11) NOT NULL,
-  FOREIGN KEY (id_diretor) REFERENCES diretor(id)
+  FOREIGN KEY (id_diretor) REFERENCES diretor(id) ON DELETE CASCADE
 );
 
 CREATE TABLE filme_ator(
   id_ator int(11) NOT NULL,
   id_filme int(11) NOT NULL,
-  FOREIGN KEY (id_ator) REFERENCES ator(id),
-  FOREIGN KEY (id_filme) REFERENCES filme(id)
+  FOREIGN KEY (id_ator) REFERENCES ator(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_filme) REFERENCES filme(id) ON DELETE CASCADE
 );
 
 CREATE TABLE filme_genero(
   id_filme int(11) NOT NULL,
   id_genero int(11) NOT NULL,
-  FOREIGN KEY (id_filme) REFERENCES filme(id),
-  FOREIGN KEY (id_genero) REFERENCES genero(id)
+  FOREIGN KEY (id_filme) REFERENCES filme(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_genero) REFERENCES genero(id) ON DELETE CASCADE
 );
 
 CREATE TABLE avaliacao(
@@ -75,24 +75,25 @@ CREATE TABLE avaliacao(
   texto text,
   nota float(1),
   data_avaliacao datetime NOT NULL,
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id),
-  FOREIGN KEY (id_filme) REFERENCES filme(id)
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_filme) REFERENCES filme(id) ON DELETE CASCADE
 );
 
 CREATE TABLE comentario_avaliacao(
+  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   id_avaliacao int(11) NOT NULL,
   id_usuario int(11) NOT NULL,
   texto text NOT NULL,
   data_comentario datetime NOT NULL,
-  FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id),
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+  FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE curtida_avaliacao(
   id_avaliacao int(11) NOT NULL,
   id_usuario int(11) NOT NULL,
-  FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id),
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+  FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 INSERT INTO
@@ -109,7 +110,47 @@ INSERT INTO
     banner
   )
 VALUES
-  ('Meu vizinho totoro', '1988-04-16', '', 1, '');
+  ('Meu vizinho totoro', '1988-04-16', '', 1, ''),
+  ('Spirited away', '2001-07-20', '', 1, ''),
+  ('Princess Mononoke', '1997-07-12', '', 1, ''),
+  ('Ponyo', '2008-07-19', '', 1, ''),
+  ('howls moving castle', '2001-07-19', '', 1, '');
+
+INSERT INTO
+  pipocando.usuario (nome, email, senha)
+VALUES
+  ('Temaki', 'tofu@sushi.com', 'japa');
+
+INSERT INTO
+  pipocando.avaliacao (
+    id_usuario,
+    id_filme,
+    assistido,
+    favorito,
+    texto,
+    nota,
+    data_avaliacao
+  )
+VALUES
+  (
+    1,
+    1,
+    1,
+    1,
+    'Sem plot, sem começo, sem fim, porem perfeito',
+    5,
+    '2023-11-12'
+  ),
+  (
+    1,
+    1,
+    1,
+    0,
+    'bom, porem falta historia',
+    3,
+    '2023-11-12'
+  ),
+  (1, 2, 1, 0, NULL, NULL, '2023-11-12');
 
 SELECT
   *
@@ -127,3 +168,11 @@ SELECT
   MAX(nota) AS LargestPrice
 FROM
   avaliacao;
+
+SELECT
+  diretor.nome
+FROM
+  filme
+  LEFT JOIN diretor ON filme.id = diretor.id
+GROUP BY
+  nome;

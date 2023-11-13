@@ -7,7 +7,7 @@ module.exports = app => {
   router.post("/", controller.criar);
 
   // buscar filme por id
-  router.get("/:id", controller.buscarPorId);
+  router.get("/:id", controller.buscarPaginaFilme);
 
   // buscar por texto
   router.get("/", controller.buscar);

@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+    <%- include('../partials/header') %>
+
+        <body>
+            <h1>
+                <%= filme.nome %>
+            </h1>
+            <span>
+                <%= filme.diretor %>
+            </span>
+            <span>
+                <%= filme.ano_lancamento %>
+            </span>
+            <span>
+                <%= filme.sinopse %>
+            </span>
+            <img src=" <%= filme.banner %>" />
+
+            <ul>
+                <% avaliacoes.forEach((avaliacao)=> { %>
+                    <li>
+                        <p class="d-block">
+                            <%= avaliacao.texto %>
+                        </p>
+                        <span class="d-block">
+                            Nota: <%= avaliacao.nota %> / 5
+                        </span>
+                        <small class="d-block">
+                            Usuário: <%= avaliacao.nome_usuario %>
+                        </small>
+                        <span class="d-block">
+                            Curtidas: <%= avaliacao.curtidas %>
+                        </span>
+                    </li>
+                    <hr />
+                    <% }) %>
+            </ul>
+        </body>
+        <%- include('../partials/footer') %>
