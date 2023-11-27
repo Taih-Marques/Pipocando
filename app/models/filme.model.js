@@ -13,7 +13,13 @@ const Filme = function (filme) {
 Filme.criar = (filme, callback) => {
   sql.query(
     "INSERT INTO filme (nome, sinopse, ano_lancamento, id_diretor, banner) VALUES (?, ?, ?, ?, ?)",
-    [filme.nome, filme.sinopse, filme.ano_lancamento, filme.id_diretor, filme.banner],
+    [
+      filme.nome,
+      filme.sinopse,
+      filme.ano_lancamento,
+      filme.id_diretor,
+      filme.banner,
+    ],
     (err, res) => {
       if (err) {
         console.log("erro: ", err);
@@ -21,30 +27,37 @@ Filme.criar = (filme, callback) => {
         return;
       }
 
-      const filmeCriado = { id: res.insertId, ...filme }
+      const filmeCriado = { id: res.insertId, ...filme };
 
       console.log("Filme criado: ", filmeCriado);
       callback(null, filmeCriado);
-    });
+    }
+  );
 };
 
 Filme.buscarPorId = (id, callback) => {
-  sql.query(`SELECT * FROM filme WHERE id = ${id}`, (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+  sql.query(
+    `SELECT filme.*, diretor.nome as nome_diretor
+          FROM filme
+          INNER JOIN diretor ON diretor.id = filme.id_diretor
+          WHERE filme.id = ${id}`,
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
 
-    if (res.length) {
-      console.log("Filme encontrado: ", res[0]);
-      callback(null, res[0]);
-      return;
-    }
+      if (res.length) {
+        console.log("Filme encontrado: ", res[0]);
+        callback(null, res[0]);
+        return;
+      }
 
-    // not found Tutorial with the id
-    callback({ codigo: 404 }, null);
-  });
+      // not found Tutorial with the id
+      callback({ codigo: 404 }, null);
+    }
+  );
 };
 
 Filme.buscar = (texto, callback) => {

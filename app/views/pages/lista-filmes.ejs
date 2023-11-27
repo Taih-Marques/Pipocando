@@ -1,21 +1,16 @@
-<%- include('../partials/head') %>
-    <%- include('../partials/header') %>
+<%- include('../partials/head') %> <%- include('../partials/header') %>
 
-        <body>
-            <ul>
-                <% filmes.forEach((filme)=> { %>
-                    <li>
-                        <a href="/filmes/<%=filme.id%>">
-                            <h2>
-                                <%= filme.nome %>
-                            </h2>
-                            <p>
-                                <%= filme.ano_lancamento %>
-                            </p>
-                        </a>
-                    </li>
-                    <hr />
-                    <% }) %>
-            </ul>
-        </body>
-        <%- include('../partials/footer') %>
+<body>
+  <ul class="row mx-5">
+    <% filmes.forEach((filme)=> { %>
+    <li class="col-4">
+      <a href="/filmes/<%=filme.id%>">
+        <img class="filme-img" src="/images/<%=filme.banner%>" />
+        <h2><%= filme.nome %></h2>
+        <p><%= filme.ano_lancamento.getFullYear() %></p>
+      </a>
+    </li>
+    <% }) %>
+  </ul>
+</body>
+<%- include('../partials/footer') %>

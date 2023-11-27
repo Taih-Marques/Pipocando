@@ -1,5 +1,3 @@
-use pipocando;
-
 drop table if exists curtida_avaliacao;
 
 drop table if exists comentario_avaliacao;
@@ -116,11 +114,15 @@ VALUES
   ('Ponyo', '2008-07-19', '', 1, ''),
   ('howls moving castle', '2001-07-19', '', 1, '');
 
+-- USUARIOS
 INSERT INTO
   pipocando.usuario (nome, email, senha)
 VALUES
-  ('Temaki', 'tofu@sushi.com', 'japa');
+  ('Stefani', 'stef@sushi.com', 'japa'),
+  ('Taih', 'taih@sushi.com', 'india'),
+  ('Hiago', 'hiago@sushi.com', 'branco');
 
+-- AVALIAÇÕES
 INSERT INTO
   pipocando.avaliacao (
     id_usuario,
@@ -142,8 +144,8 @@ VALUES
     '2023-11-12'
   ),
   (
-    1,
-    1,
+    2,
+    2,
     1,
     0,
     'bom, porem falta historia',
@@ -152,27 +154,21 @@ VALUES
   ),
   (1, 2, 1, 0, NULL, NULL, '2023-11-12');
 
-SELECT
-  *
-FROM
-  filme
-ORDER BY
-  id_diretor;
-
-SELECT
-  MIN(nota) AS SmallestPrice
-FROM
-  avaliacao;
-
-SELECT
-  MAX(nota) AS LargestPrice
-FROM
-  avaliacao;
-
-SELECT
-  diretor.nome
-FROM
-  filme
-  LEFT JOIN diretor ON filme.id = diretor.id
-GROUP BY
-  nome;
+-- COMENTARIOS NA AVALIAÇÃO
+INSERT INTO
+  pipocando.comentario_avaliacao (
+    id,
+    id_avaliacao,
+    id_usuario,
+    texto,
+    data_comentario
+  )
+VALUES
+  (
+    1,
+    1,
+    2,
+    'faco das suas palavras as minhas',
+    '2023-11-12'
+  ),
+  (2, 2, 3, 'querida, vc esta loka?', '2023-11-12');

@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "docker compose -f docker-compose.yml up || true",
-    "start:local": "cd app && npx nodemon -L app.js"
+    "start": "npx nodemon -L app/app.js"
   },
   "keywords": [],
   "author": "",

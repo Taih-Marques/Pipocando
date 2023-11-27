@@ -30,7 +30,6 @@ exports.criar = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database (with condition).
 exports.buscar = (req, res) => {
     const texto = req.query.texto;
 
@@ -60,16 +59,16 @@ exports.findAllPublished = (req, res) => {
 };
 
 // Find a single Tutorial with a id
-exports.findOne = (req, res) => {
-    Avaliacao.findById(req.params.id, (err, data) => {
+exports.buscarPorId = (req, res) => {
+    Avaliacao.buscarPorId(req.params.id, (err, data) => {
         if (err) {
-            if (err.kind === "not_found") {
+            if (err.codigo === 404) {
                 res.status(404).send({
-                    message: `Not found Tutorial with id ${req.params.id}.`
+                    message: `Não encontrado avaliação com o id:${req.params.id}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving Tutorial with id " + req.params.id
+                    message: "Erro ao buscar avaliação com o id: " + req.params.id
                 });
             }
         } else res.send(data);

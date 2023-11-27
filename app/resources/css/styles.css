@@ -1,0 +1,10 @@
+body {
+    background-color: #14181c;
+}
+
+.filme-img {
+    height: 300px;
+}
+#avaliacoes {
+    margin: 0 200px 0 300px;
+}
