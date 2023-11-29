@@ -108,11 +108,35 @@ INSERT INTO
     banner
   )
 VALUES
-  ('Meu vizinho totoro', '1988-04-16', '', 1, ''),
-  ('Spirited away', '2001-07-20', '', 1, ''),
-  ('Princess Mononoke', '1997-07-12', '', 1, ''),
-  ('Ponyo', '2008-07-19', '', 1, ''),
-  ('howls moving castle', '2001-07-19', '', 1, '');
+  (
+    'Meu vizinho totoro',
+    '1988-04-16',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit lacus at felis dapibus dignissim. Aenean ornare ex mauris, sed interdum felis maximus ut. Maecenas suscipit elit nisl, ut bibendum metus viverra eu. Ut in lacus nec neque faucibus consectetur. Quisque bibendum vehicula erat non luctus. Mauris vel sem pharetra, pellentesque nulla in, bibendum odio. Ut id rutrum diam, in dictum ante. Integer quis rutrum eros, a ullamcorper tellus. Nunc vitae augue bibendum, commodo lorem non, rutrum lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis a laoreet odio, at vestibulum eros. Phasellus tortor risus, finibus eget nulla vel, convallis auctor sapien.',
+    1,
+    'my-neighborn-totoro.jpg'
+  ),
+  (
+    'Spirited away',
+    '2001-07-20',
+    '',
+    1,
+    'spirited-away.jpg'
+  ),
+  (
+    'Princess Mononoke',
+    '1997-07-12',
+    '',
+    1,
+    'princess-mononoke.jpg'
+  ),
+  ('Ponyo', '2008-07-19', '', 1, 'ponyo.jpg'),
+  (
+    'howls moving castle',
+    '2001-07-19',
+    '',
+    1,
+    'howls-moving-castle.jpg'
+  );
 
 -- USUARIOS
 INSERT INTO
@@ -157,7 +181,6 @@ VALUES
 -- COMENTARIOS NA AVALIAÇÃO
 INSERT INTO
   pipocando.comentario_avaliacao (
-    id,
     id_avaliacao,
     id_usuario,
     texto,
@@ -166,9 +189,14 @@ INSERT INTO
 VALUES
   (
     1,
-    1,
     2,
     'faco das suas palavras as minhas',
     '2023-11-12'
   ),
-  (2, 2, 3, 'querida, vc esta loka?', '2023-11-12');
+  (2, 3, 'querida, vc esta loka?', '2023-11-12');
+
+-- CURTIDA AVALIACAO
+INSERT INTO
+  pipocando.curtida_avaliacao (id_avaliacao, id_usuario)
+VALUES
+(1, 1);
