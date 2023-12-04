@@ -9,16 +9,20 @@ const Usuario = function (usuario) {
 };
 
 Usuario.criar = (usuario, callback) => {
-  sql.query("INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)", [usuario.nome, usuario.email, usuario.senha], (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+  sql.query(
+    "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)",
+    [usuario.nome, usuario.email, usuario.senha],
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
 
-    console.log("Usuario criado: ", { id: res.insertId, ...usuario });
-    callback(null, { id: res.insertId, ...usuario });
-  });
+      // console.log("Usuario criado: ", { id: res.insertId, ...usuario });
+      callback(null, { id: res.insertId, ...usuario });
+    }
+  );
 };
 
 Usuario.buscaPorId = (id, callback) => {
@@ -30,7 +34,7 @@ Usuario.buscaPorId = (id, callback) => {
     }
 
     if (res.length) {
-      console.log("usuario encontrado: ", res[0]);
+      // console.log("usuario encontrado: ", res[0]);
       callback(null, res[0]);
       return;
     }

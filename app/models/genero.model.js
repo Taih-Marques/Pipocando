@@ -7,16 +7,20 @@ const Genero = function (genero) {
 };
 
 Genero.criar = (genero, callback) => {
-  sql.query("INSERT INTO genero (nome) VALUES (?)", [genero.nome], (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+  sql.query(
+    "INSERT INTO genero (nome) VALUES (?)",
+    [genero.nome],
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
 
-    console.log("Genero criado: ", { id: res.insertId, ...genero });
-    callback(null, { id: res.insertId, ...genero });
-  });
+      // console.log("Genero criado: ", { id: res.insertId, ...genero });
+      callback(null, { id: res.insertId, ...genero });
+    }
+  );
 };
 
 Genero.buscaPorId = (id, callback) => {
@@ -28,7 +32,7 @@ Genero.buscaPorId = (id, callback) => {
     }
 
     if (res.length) {
-      console.log("genero encontrado: ", res[0]);
+      // console.log("genero encontrado: ", res[0]);
       callback(null, res[0]);
       return;
     }

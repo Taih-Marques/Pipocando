@@ -7,16 +7,20 @@ const Diretor = function (diretor) {
 };
 
 Diretor.criar = (diretor, callback) => {
-  sql.query("INSERT INTO diretor (nome) VALUES (?)", [diretor.nome], (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+  sql.query(
+    "INSERT INTO diretor (nome) VALUES (?)",
+    [diretor.nome],
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
 
-    console.log("Diretor criado: ", { id: res.insertId, ...diretor });
-    callback(null, { id: res.insertId, ...diretor });
-  });
+      // console.log("Diretor criado: ", { id: res.insertId, ...diretor });
+      callback(null, { id: res.insertId, ...diretor });
+    }
+  );
 };
 
 Diretor.buscaPorId = (id, callback) => {

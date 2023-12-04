@@ -15,8 +15,12 @@ const Avaliacao = function (avaliacao) {
 
 Avaliacao.criar = (avaliacao, callback) => {
   sql.query(
-    "INSERT INTO avaliacao (assistido, favorito, texto, nota, data_avaliacao) VALUES (?, ?, ?, ?, ?)",
+    `INSERT INTO avaliacao
+    (id_usuario, id_filme, assistido, favorito, texto, nota, data_avaliacao)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [
+      avaliacao.id_usuario,
+      avaliacao.id_filme,
       avaliacao.assistido,
       avaliacao.favorito,
       avaliacao.texto,
@@ -32,7 +36,7 @@ Avaliacao.criar = (avaliacao, callback) => {
 
       const avaliacaoCriada = { id: res.insertId, ...avaliacao };
 
-      console.log("Avalição criada: ", avaliacaoCriada);
+      // console.log("Avalição criada: ", avaliacaoCriada);
       callback(null, avaliacaoCriada);
     }
   );
@@ -54,7 +58,7 @@ Avaliacao.editarAssistido = (id_avaliacao, novoValor, callback) => {
         return;
       }
 
-      console.log("Atualizando filme assistido: ", { id: id, ...avaliacao });
+      // console.log("Atualizando filme assistido: ", { id: id, ...avaliacao });
       callback(null, { id: id, ...avaliacao });
     }
   );
@@ -76,7 +80,7 @@ Avaliacao.editarFavorito = (id_avaliacao, novoValor, callback) => {
         return;
       }
 
-      console.log("Atualizando filme favorito: ", { id: id, ...avaliacao });
+      // console.log("Atualizando filme favorito: ", { id: id, ...avaliacao });
       callback(null, { id: id, ...avaliacao });
     }
   );
@@ -99,7 +103,7 @@ Avaliacao.editar = (id, avaliacao, callback) => {
         return;
       }
 
-      console.log("Atualizando avaliação: ", { id: id, ...avaliacao });
+      // console.log("Atualizando avaliação: ", { id: id, ...avaliacao });
       callback(null, { id: id, ...avaliacao });
     }
   );
@@ -136,7 +140,7 @@ Avaliacao.curtirAvaliacao = (id_avaliacao, id_usuario, callback) => {
 
       const curtida = { id: res.insertId, ...avaliacao };
 
-      console.log("Avalição curtida: ", curtida);
+      // console.log("Avalição curtida: ", curtida);
       callback(null, curtida);
     }
   );
@@ -213,7 +217,27 @@ Avaliacao.buscarAvaliacoes = (id_filme, callback) => {
     }
   );
 };
+Avaliacao.buscarPorUsuarioEFilme = (id_usuario, id_filme, callback) => {
+  sql.query(
+    `SELECT id, id_usuario, id_filme, assistido, favorito, texto, nota, data_avaliacao
+    FROM avaliacao 
+    WHERE id_filme = ${id_filme} AND id_usuario = ${id_usuario}`,
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
+      // console.log(res);
+      callback(null, res.length > 0 ? res[0] : null);
+    }
+  );
+};
 Avaliacao.buscarComentarios = (ids_avaliacoes, callback) => {
+  if (!ids_avaliacoes || ids_avaliacoes.length === 0) {
+    callback(null, []);
+    return;
+  }
   sql.query(
     `SELECT com.id_avaliacao,
             com.id_usuario,
@@ -230,7 +254,7 @@ Avaliacao.buscarComentarios = (ids_avaliacoes, callback) => {
         callback(err, null);
         return;
       }
-      console.log(res);
+      // console.log(res);
       callback(null, res);
     }
   );

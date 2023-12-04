@@ -3,10 +3,10 @@
 <body>
   <ul class="row mx-5">
     <% filmes.forEach((filme)=> { %>
-    <li class="col-4">
-      <a href="/filmes/<%=filme.id%>">
+    <li class="col-2">
+      <a href="/filmes/<%=filme.id%>" class="text-decoration-none text-light">
         <img class="filme-img" src="/images/<%=filme.banner%>" />
-        <h2><%= filme.nome %></h2>
+        <h5 class="mt-2"><%= filme.nome %></h5>
         <p><%= filme.ano_lancamento.getFullYear() %></p>
       </a>
     </li>

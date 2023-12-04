@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/filme.routes.js")(app);
+require("./routes/avaliacao.routes.js")(app);
 
 app.listen(port, () => {
   console.log(`App listening at port ${port}`);

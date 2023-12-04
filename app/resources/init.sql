@@ -199,4 +199,4 @@ VALUES
 INSERT INTO
   pipocando.curtida_avaliacao (id_avaliacao, id_usuario)
 VALUES
-(1, 1);
+  (1, 1);
