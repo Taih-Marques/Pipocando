@@ -1,7 +1,7 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 
 <body>
-  <ul class="row mx-5">
+  <ul class="row mx-1">
     <% filmes.forEach((filme)=> { %>
     <li class="col-4">
       <a href="/filmes/<%=filme.id%>">
@@ -13,4 +13,5 @@
     <% }) %>
   </ul>
 </body>
+
 <%- include('../partials/footer') %>

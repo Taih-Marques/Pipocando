@@ -10,7 +10,7 @@ app.use(express.static("./resources"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.redirect("/filmes");
+  res.redirect("/inicio");
 });
 
 require("./routes/filme.routes.js")(app);
