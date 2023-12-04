@@ -4,7 +4,23 @@ Projeto de Banco de dados 1, com tecnologias de plataforma web full-stack, e no 
 
 ## Executando o projeto
 
-`npm start` caso já tenha MySQL rodando, caso contrário `docker compose -f "docker-compose.yml" up -d --build`.
+### MySQL
+
+É necessário ter o MySQL em execução. Caso use Docker, você pode executar uma instância MySQL com o comando `docker run --name pipocando-mysql -v PASTA_BANCO:/var/lib/mysql -e MYSQL_DATABASE=pipocando -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql`, substituindo `PASTA_BANCO` pelo caminho de uma pasta vazia no sistema, que será usada para guardar os dados.
+
+Defina as variáveis de ambiente ou crie um arquivo `.env` na pasta app, conforme exemplo:
+
+```ini
+DB_PASSWORD=123456
+DB_USER=root
+DB_NAME=pipocando
+DB_HOST=localhost
+PORT=8080
+```
+
+Após isso, usando o MySQLWorkbench (ou outro cliente) crie um banco de dados com o nome definido em `DB_NAME`, conecte-se e execute o script `app/resources/init.sql`.
+
+Abra um terminal na pasta do projeto e execute `npm start`.
 
 ## Banco de dados
 
