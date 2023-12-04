@@ -6,25 +6,56 @@
       <ul
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
+<<<<<<< HEAD
         <li><a href="/" class="nav-link px-2 text-white">Inicio</a></li>
         <li><a href="/filmes" class="nav-link px-2 text-white">Filmes</a></li>
         <li>
           <a href="/generos" class="nav-link px-2 text-white">Generos</a>
         </li>
         <li><a href="/sobre" class="nav-link px-2 text-white">Sobre</a></li>
+=======
+        <li><a href="/" class="nav-link px-2 text-white">Filmes</a></li>
+        <li>
+          <a href="/articles" class="nav-link px-2 text-white">Generos</a>
+        </li>
+        <li><a href="#" class="nav-link px-2 text-white">Sobre</a></li>
+>>>>>>> de91268c129d5f6475efcc1940eb223cdce7a975
       </ul>
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
         <input
           type="search"
           class="form-control form-control-dark"
           placeholder="Buscar filme..."
+<<<<<<< HEAD
           aria-label="Search"
         />
       </form>
       <div class="text-end">
         <button type="button" class="btn btn-outline-light me-2">Login</button>
         <button type="button" class="btn btn-warning">Sign-up</button>
+=======
+          id="texto-busca"
+        />
+      </form>
+      <div class="text-end">
+        <button
+          onclick="buscar()"
+          type="button"
+          class="btn btn-outline-light me-2"
+        >
+          Pesquisar
+        </button>
+>>>>>>> de91268c129d5f6475efcc1940eb223cdce7a975
       </div>
     </div>
   </div>
 </header>
+<<<<<<< HEAD
+=======
+<script>
+  function buscar() {
+    var texto = document.getElementById("texto-busca").value;
+    window.location.href = "/filmes?texto=" + texto;
+  }
+</script>
+>>>>>>> de91268c129d5f6475efcc1940eb223cdce7a975

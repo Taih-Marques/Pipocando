@@ -68,7 +68,6 @@ exports.buscarPaginaFilme = (req, res) => {
       }
 
       const ids_avaliacoes = avaliacoes.map((avaliacao) => avaliacao.id);
-      console.log("avaliacoes", avaliacoes);
 
       Avaliacao.buscarComentarios(ids_avaliacoes, (err, comentarios) => {
         if (err) {

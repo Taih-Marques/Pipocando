@@ -3,9 +3,27 @@ body {
 }
 
 .filme-img {
-    height: 300px;
+    height: 250px;
+    width: 100%;
+}
+#pagina-filme {
+    color: white;
+}
+.pagina-filme-img {
+    width: 250px;
 }
 #avaliacoes {
     margin: 0 200px 0 300px;
 }
 
+<<<<<<< HEAD
+=======
+#caixa-avaliacao {
+    display: flex;
+}
+ #input-avaliacao {
+    flex-grow: 1;
+    background-color: #14181c;
+    color: white;
+}
+>>>>>>> de91268c129d5f6475efcc1940eb223cdce7a975

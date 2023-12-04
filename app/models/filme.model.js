@@ -29,7 +29,7 @@ Filme.criar = (filme, callback) => {
 
       const filmeCriado = { id: res.insertId, ...filme };
 
-      console.log("Filme criado: ", filmeCriado);
+      // console.log("Filme criado: ", filmeCriado);
       callback(null, filmeCriado);
     }
   );
@@ -49,7 +49,7 @@ Filme.buscarPorId = (id, callback) => {
       }
 
       if (res.length) {
-        console.log("Filme encontrado: ", res[0]);
+        // console.log("Filme encontrado: ", res[0]);
         callback(null, res[0]);
         return;
       }
@@ -74,7 +74,7 @@ Filme.buscar = (texto, callback) => {
       return;
     }
 
-    console.log("filmes: ", res);
+    // console.log("filmes: ", res);
     callback(null, res);
   });
 };

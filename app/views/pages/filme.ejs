@@ -1,8 +1,8 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 
-<body>
+<body id="pagina-filme">
   <main id="filme-main" class="d-flex px-5 text-light">
-    <img class="filme-img" src="/images/<%=filme.banner%>" />
+    <img class="pagina-filme-img" src="/images/<%=filme.banner%>" />
     <div class="ms-5">
       <h1>
         <%= filme.nome %>
@@ -20,8 +20,26 @@
 
   <section id="avaliacoes" class="mt-5">
     <h2 class="text-light mb-3">Avaliações</h2>
-
+    <form id="caixa-avaliacao" class="input-group">
+      <textarea
+        id="input-avaliacao"
+        rows="5"
+        placeholder="Escrever avaliação"
+        class="form-control"
+      ></textarea>
+      <button
+        type="button"
+        onclick="enviarAvaliacao()"
+        class="btn btn-outline-success ml-1"
+      >
+        <i>Enviar</i>
+      </button>
+    </form>
     <ul id="filme-avaliacoes" class="list-group">
+      <% if (!avaliacoes || avaliacoes.length === 0) { %>
+      <p>Nenhuma avaliação</p>
+      <% } %>
+      <br />
       <% avaliacoes.forEach((avaliacao)=> { %>
       <li
         class="list-group-item bg-transparent text-light border-bottom border-top border-light-subtle"
@@ -68,4 +86,27 @@
     </ul>
   </section>
 </body>
+
+<script>
+  var id_filme = `<%= JSON.stringify(filme.id)  %>`;
+  function enviarAvaliacao() {
+    const caixaAvaliacao = document.getElementById("caixa-avaliacao").value;
+    const texto = document.getElementById("input-avaliacao").value;
+    const nota = 1; //document.getElementById("nota-avaliacao").value;
+    const body = {
+      texto: texto,
+      nota: nota,
+      id_filme: id_filme,
+    };
+
+    fetch("/avaliacao/escrever", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }).then((res) => {
+      console.log("Request complete! response:", res);
+    });
+  }
+</script>
+
 <%- include('../partials/footer') %>
