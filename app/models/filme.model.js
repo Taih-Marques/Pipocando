@@ -67,10 +67,10 @@ Filme.buscarPorId = (id, callback) => {
 };
 
 Filme.buscar = (texto, callback) => {
-  let query = "SELECT * FROM filme";
+  let query = "SELECT * FROM filme ";
 
   if (texto) {
-    query += ` WHERE nome LIKE '%${texto}%'`;
+    query += ` WHERE nome LIKE '%${texto}%' `;
   }
 
   sql.query(query, (err, res) => {
