@@ -1,26 +1,3 @@
 body {
     background-color: #14181c;
 }
-
-.filme-img {
-    height: 250px;
-    width: 100%;
-}
-#pagina-filme {
-    color: white;
-}
-.pagina-filme-img {
-    width: 250px;
-}
-#avaliacoes {
-    margin: 0 200px 0 300px;
-}
-
-#caixa-avaliacao {
-    display: flex;
-}
- #input-avaliacao {
-    flex-grow: 1;
-    background-color: #14181c;
-    color: white;
-}

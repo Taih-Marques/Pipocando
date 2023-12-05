@@ -259,4 +259,5 @@ Avaliacao.buscarComentarios = (ids_avaliacoes, callback) => {
     }
   );
 };
+
 module.exports = Avaliacao;

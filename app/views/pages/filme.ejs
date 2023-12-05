@@ -17,96 +17,16 @@
       <p><%= filme.sinopse %></p>
     </div>
   </main>
-
-  <section id="avaliacoes" class="mt-5">
-    <h2 class="text-light mb-3">Avaliações</h2>
-    <form id="caixa-avaliacao" class="input-group">
-      <textarea
-        id="input-avaliacao"
-        rows="5"
-        placeholder="Escrever avaliação"
-        class="form-control"
-      ></textarea>
-      <button
-        type="button"
-        onclick="enviarAvaliacao()"
-        class="btn btn-outline-success ml-1"
-      >
-        <i>Enviar</i>
-      </button>
-    </form>
-    <ul id="filme-avaliacoes" class="list-group">
-      <% if (!avaliacoes || avaliacoes.length === 0) { %>
-      <p>Nenhuma avaliação</p>
-      <% } %>
-      <br />
-      <% avaliacoes.forEach((avaliacao)=> { %>
-      <li
-        class="list-group-item bg-transparent text-light border-bottom border-top border-light-subtle"
-      >
-        <small class="d-block"> Usuário: <%= avaliacao.nome_usuario %> </small>
-        <span class="d-block"> </span>
-        <p class="d-block"><%= avaliacao.texto %></p>
-
-        <span class="d-block">
-          <svg
-            width="20px"
-            height="20px"
-            viewBox="0 0 24 24"
-            fill="red"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
-              stroke="#000000"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <%= avaliacao.curtidas %> curtidas
-        </span>
-        <% avaliacao.comentarios.forEach((comentario)=> { %>
-        <ul class="list-group mt-3 ms-4">
-          <li class="list-group-item bg-dark text-light">
-            <p class="mb-0">
-              <span class="fw-bold badge text-bg-primary"
-                ><%= comentario.nome_usuario %>:</span
-              >
-              <%= comentario.texto %>
-            </p>
-          </li>
-        </ul>
-        <% }) %>
-      </li>
-      <hr />
-      <% }) %>
-    </ul>
-  </section>
+  <%- include('../partials/avaliacoes', {filme: filme, avaliacoes: avaliacoes,
+  id_usuario: id_usuario, avaliacaoEditar: avaliacaoEditar}) %>
 </body>
-
-<script>
-  var id_filme = `<%= JSON.stringify(filme.id)  %>`;
-  function enviarAvaliacao() {
-    const caixaAvaliacao = document.getElementById("caixa-avaliacao").value;
-    const texto = document.getElementById("input-avaliacao").value;
-    const nota = 1; //document.getElementById("nota-avaliacao").value;
-    const body = {
-      texto: texto,
-      nota: nota,
-      id_filme: id_filme,
-    };
-
-    fetch("/avaliacao/escrever", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      console.log("Request complete! response:", res);
-    });
-  }
-</script>
-
 <%- include('../partials/footer') %>
+
+<style>
+  #pagina-filme {
+    color: white;
+  }
+  .pagina-filme-img {
+    width: 250px;
+  }
+</style>

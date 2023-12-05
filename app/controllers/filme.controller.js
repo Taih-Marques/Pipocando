@@ -1,5 +1,6 @@
 const Filme = require("../models/filme.model.js");
 const Avaliacao = require("../models/avaliacao.model.js");
+const Auth = require("../models/auth.js");
 
 exports.criar = (req, res) => {
   // validar requisição
@@ -58,7 +59,7 @@ exports.buscarPaginaFilme = (req, res) => {
       return;
     }
 
-    Avaliacao.buscarAvaliacoes(filme.id, (err, avaliacoes) => {
+    Avaliacao.buscarAvaliacoes(filme.id, (err, avaliacoesDb) => {
       if (err) {
         res.status(500).send({
           message:
@@ -67,6 +68,16 @@ exports.buscarPaginaFilme = (req, res) => {
         return;
       }
 
+      const id_usuario = Auth.getIdUsuarioLogado();
+
+      let avaliacoes = avaliacoesDb;
+      let avaliacaoEditar;
+      if (req.query.editar) {
+        avaliacaoEditar = avaliacoes.filter(
+          (av) => av.id_usuario === id_usuario
+        );
+        avaliacoes = avaliacoes.filter((av) => av.id_usuario !== id_usuario);
+      }
       const ids_avaliacoes = avaliacoes.map((avaliacao) => avaliacao.id);
 
       Avaliacao.buscarComentarios(ids_avaliacoes, (err, comentarios) => {
@@ -78,13 +89,15 @@ exports.buscarPaginaFilme = (req, res) => {
         }
         avaliacoes.forEach((avaliacao) => {
           avaliacao.comentarios = comentarios.filter(
-            (comentario) => (comentario.id_avaliacao = avaliacao.id)
+            (comentario) => comentario.id_avaliacao === avaliacao.id
           );
         });
 
         res.render("pages/filme", {
           filme: filme,
           avaliacoes: avaliacoes,
+          id_usuario: id_usuario,
+          avaliacaoEditar: avaliacaoEditar,
           title: filme.nome,
         });
       });

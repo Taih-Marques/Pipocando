@@ -23,22 +23,22 @@ Genero.criar = (genero, callback) => {
   );
 };
 
-Genero.buscaPorId = (id, callback) => {
-  sql.query(`SELECT * FROM genero WHERE id = ${id}`, (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+Genero.buscaPorIdFilme = (id_filme, callback) => {
+  sql.query(
+    `SELECT genero.nome 
+            FROM filme_genero 
+            INNER JOIN genero ON genero.id = filme_genero.id_genero
+            WHERE id_filme = ${id_filme}`,
 
-    if (res.length) {
-      // console.log("genero encontrado: ", res[0]);
-      callback(null, res[0]);
-      return;
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
+      callback(null, res || []);
     }
-    // not found Tutorial with the id
-    callback({ codigo: 404 }, null);
-  });
+  );
 };
 
 module.exports = Genero;
