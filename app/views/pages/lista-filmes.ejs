@@ -1,6 +1,7 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 
 <body>
+  <% if (filmesBons) { %>
   <h3 class="text-light mx-5 px-5">FILMES RECOMENDADOS:</h3>
   <ul class="row mx-5">
     <% filmesBons.forEach((filme)=> { %>
@@ -13,8 +14,12 @@
     </li>
     <% }) %>
   </ul>
+  <% } %>
 
-  <h3 class="text-light mx-5 px-5">TODOS OS FILMES:</h3>
+  <h3 class="text-light mx-5 px-5">
+    <%= query.texto ? `Buscando filmes com ` + query.texto : 'TODOS OS FILMES:'
+    %>
+  </h3>
   <ul class="row">
     <% filmes.forEach((filme)=> { %>
     <li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">

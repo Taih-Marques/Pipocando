@@ -38,19 +38,29 @@ exports.buscar = (req, res) => {
         message: err.message || "Erro ao buscar filmes.",
       });
     else {
-      Filme.buscarFilmeComNotaMedia(4, (err, filmesBons) => {
-        if (err)
-          res.status(500).send({
-            message: err.message || "Erro ao buscar filmes.",
-          });
-        else {
-          res.render("pages/lista-filmes", {
-            filmes: filmes,
-            title: "Filmes",
-            filmesBons: filmesBons,
-          });
-        }
-      });
+      if (texto) {
+        res.render("pages/lista-filmes", {
+          filmes: filmes,
+          title: "Filmes",
+          query: req.query,
+          filmesBons: undefined,
+        });
+      } else {
+        Filme.buscarFilmeComNotaMedia(4, (err, filmesBons) => {
+          if (err)
+            res.status(500).send({
+              message: err.message || "Erro ao buscar filmes.",
+            });
+          else {
+            res.render("pages/lista-filmes", {
+              filmes: filmes,
+              title: "Filmes",
+              query: undefined,
+              filmesBons: filmesBons,
+            });
+          }
+        });
+      }
     }
   });
 };
