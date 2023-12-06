@@ -109,22 +109,20 @@ Avaliacao.editar = (id, avaliacao, callback) => {
   );
 };
 
-Avaliacao.removerAvaliacao = (id, callback) => {
-  sql.query("DELETE FROM avaliacao WHERE id = ?", id, (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(null, err);
-      return;
-    }
+Avaliacao.removerAvaliacao = (id_filme, id_usuario, callback) => {
+  sql.query(
+    `DELETE FROM avaliacao WHERE id_filme = ${id_filme}, id_usuario = ${id_usuario}`,
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err);
+        return;
+      }
 
-    if (res.affectedRows == 0) {
-      callback({ codigo: 404 }, null);
-      return;
+      console.log("deletada a avaliação com o id: ", id);
+      callback(null);
     }
-
-    console.log("deletada a avaliação com o id: ", id);
-    callback(null, res);
-  });
+  );
 };
 
 Avaliacao.curtirAvaliacao = (id_avaliacao, id_usuario, callback) => {

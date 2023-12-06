@@ -6,35 +6,22 @@ const Ator = function (ator) {
   this.nome = ator.nome;
 };
 
-Ator.criar = (ator, callback) => {
-  sql.query("INSERT INTO ator (nome) VALUES (?)", [ator.nome], (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
+Ator.buscaPorIdFilme = (id_filme, callback) => {
+  sql.query(
+    `SELECT ator.* 
+      FROM filme_ator
+      INNER JOIN ator ON filme_ator.id_ator = ator.id
+      WHERE filme_ator.id_filme = ${id_filme}`,
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
 
-    console.log("Ator criado: ", { id: res.insertId, ...ator });
-    callback(null, { id: res.insertId, ...ator });
-  });
-};
-
-Ator.buscaPorId = (id, callback) => {
-  sql.query(`SELECT * FROM ator WHERE id = ${id}`, (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
+      callback(null, res || []);
     }
-
-    if (res.length) {
-      console.log("ator encontrado: ", res[0]);
-      callback(null, res[0]);
-      return;
-    }
-    // not found Tutorial with the id
-    callback({ codigo: 404 }, null);
-  });
+  );
 };
 
 module.exports = Ator;

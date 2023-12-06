@@ -39,7 +39,7 @@ Filme.criar = (filme, callback) => {
 Filme.buscarPorId = (id, callback) => {
   sql.query(
     `SELECT filme.*, diretor.nome as nome_diretor,
-        AVG(avaliacao.nota) AS media_nota,
+       TRUNCATE(SUM(avaliacao.nota)/COUNT(avaliacao.nota), 1) AS media_nota,
         MIN(avaliacao.nota) AS menor_nota,
         MAX(avaliacao.nota) AS maior_nota
       FROM filme
@@ -67,11 +67,21 @@ Filme.buscarPorId = (id, callback) => {
 };
 
 Filme.buscar = (texto, callback) => {
-  let query = "SELECT * FROM filme ";
+  let query = `SELECT DISTINCT filme.* FROM filme `;
 
   if (texto) {
-    query += ` WHERE nome LIKE '%${texto}%' `;
+    query += `INNER JOIN diretor ON diretor.id = filme.id_diretor
+              LEFT JOIN filme_ator ON filme_ator.id_filme = filme.id
+              INNER JOIN ator ON filme_ator.id_ator = ator.id
+              LEFT JOIN filme_genero ON filme_genero.id_filme = filme.id
+              INNER JOIN genero ON filme_genero.id_genero = genero.id
+            WHERE filme.nome LIKE '%${texto}%' 
+              OR diretor.nome LIKE '%${texto}%'
+              OR ator.nome LIKE '%${texto}%'
+              OR genero.nome LIKE '%${texto}%'`;
   }
+
+  query += " ORDER BY filme.ano_lancamento DESC";
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -81,7 +91,7 @@ Filme.buscar = (texto, callback) => {
     }
 
     // console.log("filmes: ", res);
-    callback(null, res);
+    callback(null, res || []);
   });
 };
 
@@ -92,34 +102,6 @@ Filme.buscarFilmeComNotaMedia = (notaMedia, callback) => {
     LEFT JOIN avaliacao ON filme.id = avaliacao.id_filme
     GROUP BY filme.id, filme.nome, filme.ano_lancamento, filme.sinopse, filme.id_diretor, filme.banner
     HAVING AVG(avaliacao.nota) >= ${notaMedia}`,
-    (err, res) => {
-      if (err) {
-        console.log("erro: ", err);
-        callback(err, null);
-        return;
-      }
-      callback(null, res);
-    }
-  );
-};
-
-Filme.ordenarPorAnoLancamento = (callback) => {
-  sql.query("SELECT * FROM filme ORDER BY ano_lancamento ASC", (err, res) => {
-    if (err) {
-      console.log("erro: ", err);
-      callback(err, null);
-      return;
-    }
-    callback(null, res);
-  });
-};
-
-Filme.contarQuantidadeDeFilmes = (callback) => {
-  sql.query(
-    `SELECT
-        COUNT(filme.id) AS quantidade_filmes
-    FROM filme
-    GROUP BY filme.id WITH ROLLUP`,
     (err, res) => {
       if (err) {
         console.log("erro: ", err);

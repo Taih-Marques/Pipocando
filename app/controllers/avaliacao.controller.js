@@ -57,3 +57,24 @@ exports.salvarTextoAvaliacao = (req, res) => {
     }
   );
 };
+
+exports.excluirAvaliacao = (req, res) => {
+  // Validar requisição
+  if (!req.body) {
+    res.status(400).send({
+      message: "Conteúdo não pode ser vazio!",
+    });
+  }
+
+  const id_usuario = Auth.getIdUsuarioLogado();
+
+  Avaliacao.removerAvaliacao(req.body.id_filme, id_usuario, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Erro ao excluir avaliação.",
+      });
+    } else {
+      res.status(200);
+    }
+  });
+};

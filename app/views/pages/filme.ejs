@@ -4,17 +4,53 @@
   <main id="filme-main" class="d-flex px-5 text-light">
     <img class="pagina-filme-img" src="/images/<%=filme.banner%>" />
     <div class="ms-5">
-      <h1>
-        <%= filme.nome %>
-        <span class="text-muted fw-light">
-          <%= filme.ano_lancamento.getFullYear() %>
-        </span>
-      </h1>
-      <span class="badge bg-light text-dark mb-3">
-        <%= filme.nome_diretor %>
+      <h1><%= filme.nome %></h1>
+
+      <span class="text-muted fw-light">
+        <%= filme.ano_lancamento.getFullYear() %>
+      </span>
+      <span class="ms-2">
+        Dirigido por
+        <a class="link-light" href="/filmes?texto=<%=filme.nome_diretor%>">
+          <%= filme.nome_diretor %>
+        </a>
       </span>
 
+      <div class="mt-2 mb-3">
+        <% atores.forEach((ator)=> { %>
+        <span class="badge bg-light">
+          <a
+            class="text-decoration-none link-dark"
+            href="/filmes?texto=<%=ator.nome%>"
+          >
+            <%= ator.nome %>
+          </a>
+        </span>
+        <% }) %>
+      </div>
+
+      <div class="mt-2 mb-3">
+        <% generos.forEach((genero)=> { %>
+        <span class="badge bg-primary">
+          <a
+            class="text-decoration-none link-dark"
+            href="/filmes?texto=<%=genero.nome%>"
+          >
+            <%= genero.nome %>
+          </a>
+        </span>
+        <% }) %>
+      </div>
+
       <p><%= filme.sinopse %></p>
+    </div>
+    <div
+      class="d-flex flex-column p-1"
+      style="flex-basis: 300px; flex-shrink: 0"
+    >
+      <span> Média: <%= filme.media_nota %> </span>
+      <span> Menor Nota: <%= filme.menor_nota %></span>
+      <span> Maior Nota: <%= filme.maior_nota %></span>
     </div>
   </main>
   <%- include('../partials/avaliacoes', {filme: filme, avaliacoes: avaliacoes,

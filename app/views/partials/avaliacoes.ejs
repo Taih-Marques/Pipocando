@@ -52,6 +52,13 @@
             href="/filmes/<%=filme.id%>?editar=true"
             >Editar</a
           >
+          <a
+            role="button"
+            class="link-light d-inline-block ms-2"
+            href="/filmes/<%=filme.id%>?editar=true"
+            onclick="excluirAvaliacao()"
+            >Excluir Avaliação</a
+          >
           <% } %>
         </small>
         <p class="d-block m-0"><%= avaliacao.texto %></p>
@@ -110,6 +117,17 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+    }).then((res) => {
+      console.log("Request complete! response:", res);
+      window.location.href = "/filmes/" + id_filme;
+    });
+  }
+
+  function excluirAvaliacao() {
+    fetch("/avaliacao/excluir", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_filme: id_filme }),
     }).then((res) => {
       console.log("Request complete! response:", res);
       window.location.href = "/filmes/" + id_filme;

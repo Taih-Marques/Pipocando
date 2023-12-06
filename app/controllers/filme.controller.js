@@ -1,5 +1,7 @@
 const Filme = require("../models/filme.model.js");
 const Avaliacao = require("../models/avaliacao.model.js");
+const Ator = require("../models/ator.model.js");
+const Genero = require("../models/genero.model.js");
 const Auth = require("../models/auth.js");
 
 exports.criar = (req, res) => {
@@ -35,11 +37,21 @@ exports.buscar = (req, res) => {
       res.status(500).send({
         message: err.message || "Erro ao buscar filmes.",
       });
-    else
-      res.render("pages/lista-filmes", {
-        filmes: filmes,
-        title: "Filmes",
+    else {
+      Filme.buscarFilmeComNotaMedia(4, (err, filmesBons) => {
+        if (err)
+          res.status(500).send({
+            message: err.message || "Erro ao buscar filmes.",
+          });
+        else {
+          res.render("pages/lista-filmes", {
+            filmes: filmes,
+            title: "Filmes",
+            filmesBons: filmesBons,
+          });
+        }
       });
+    }
   });
 };
 
@@ -93,12 +105,34 @@ exports.buscarPaginaFilme = (req, res) => {
           );
         });
 
-        res.render("pages/filme", {
-          filme: filme,
-          avaliacoes: avaliacoes,
-          id_usuario: id_usuario,
-          avaliacaoEditar: avaliacaoEditar,
-          title: filme.nome,
+        Ator.buscaPorIdFilme(filme.id, (err, atores) => {
+          if (err) {
+            res.status(500).send({
+              message:
+                "Erro ao buscar atores do filme com o id: " + req.params.id,
+            });
+            return;
+          }
+
+          Genero.buscaPorIdFilme(filme.id, (err, generos) => {
+            if (err) {
+              res.status(500).send({
+                message:
+                  "Erro ao buscar atores do filme com o id: " + req.params.id,
+              });
+              return;
+            }
+
+            res.render("pages/filme", {
+              filme: filme,
+              avaliacoes: avaliacoes,
+              id_usuario: id_usuario,
+              atores: atores,
+              generos: generos,
+              avaliacaoEditar: avaliacaoEditar,
+              title: filme.nome,
+            });
+          });
         });
       });
     });

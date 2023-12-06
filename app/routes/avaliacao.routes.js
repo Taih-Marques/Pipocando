@@ -5,6 +5,7 @@ module.exports = (app) => {
 
   // Criar nova avaliacao
   router.post("/escrever", controller.salvarTextoAvaliacao);
+  router.delete("/excluir", controller.excluirAvaliacao);
 
   app.use("/avaliacao", router);
 };
