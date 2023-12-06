@@ -231,6 +231,25 @@ Avaliacao.buscarPorUsuarioEFilme = (id_usuario, id_filme, callback) => {
     }
   );
 };
+Avaliacao.buscarFavoritosPorGenero = (callback) => {
+  sql.query(
+    `SELECT genero.nome AS nome_genero, filme.nome AS nome_filme, COUNT(avaliacao.favorito) AS favoritos
+      FROM avaliacao
+      INNER JOIN filme ON filme.id = avaliacao.id_filme 
+      LEFT JOIN filme_genero ON filme_genero.id_filme = filme.id
+      LEFT JOIN genero ON genero.id = filme_genero.id_genero
+    GROUP BY genero.nome, filme.nome WITH ROLLUP`,
+    (err, res) => {
+      if (err) {
+        console.log("erro: ", err);
+        callback(err, null);
+        return;
+      }
+      // console.log(res);
+      callback(null, res || []);
+    }
+  );
+};
 Avaliacao.buscarComentarios = (ids_avaliacoes, callback) => {
   if (!ids_avaliacoes || ids_avaliacoes.length === 0) {
     callback(null, []);
