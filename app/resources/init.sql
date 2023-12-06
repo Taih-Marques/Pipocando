@@ -1691,8 +1691,14 @@ HAVING
   AVG(avaliacao.nota) >= 4;
 
 SELECT
-  *
+  genero.nome AS nome_genero,
+  filme.nome AS nome_filme,
+  COUNT(avaliacao.favorito) AS favoritos
 FROM
-  filme
-ORDER BY
-  ano_lancamento ASC
+  avaliacao
+  INNER JOIN filme ON filme.id = avaliacao.id_filme
+  LEFT JOIN filme_genero ON filme_genero.id_filme = filme.id
+  LEFT JOIN genero ON genero.id = filme_genero.id_genero
+GROUP BY
+  genero.nome,
+  filme.nome WITH ROLLUP
