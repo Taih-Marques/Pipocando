@@ -1,23 +1,40 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 
 <body>
-  <h3 class="text-light mx-5 px-5">FILMES RECOMENDADOS:</h3>
-  <ul class="row mx-5">
-    <% filmesBons.forEach((filme)=> { %>
-    <li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-      <a href="/filmes/<%=filme.id%>" class="text-decoration-none text-light">
-        <img class="filme-img" src="/images/<%=filme.banner%>" />
-        <h5 class="mt-2"><%= filme.nome %></h5>
-        <p><%= filme.ano_lancamento.getFullYear() %></p>
-      </a>
-    </li>
-    <% }) %>
-  </ul>
+  <% if (!query) { %>
+    <h5 class="text-light mx-5 px-5">FAVORITOS POR GENERO:</h5>
+    <ul class="row mx-5 ">
+      <% generos.forEach((genero)=> { %>
+      <li class="col-2">
+        <a href="/filmes?texto=<%=genero.nome%>" class="text-decoration-none link-dark badge bg-success">
+          <%= genero.nome_genero %>
+          <%= genero.favoritos %>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+    <% if (filmesBons) { %>
+    <h3 class="text-light mx-5 px-5">FILMES RECOMENDADOS:</h3>
+    <ul class="row mx-5">
+      <% filmesBons.forEach((filme)=> { %>
+      <li class="col-2">
+        <a href="/filmes/<%=filme.id%>" class="text-decoration-none text-light">
+          <img class="filme-img" src="/images/<%=filme.banner%>" />
+          <h5 class="mt-2"><%= filme.nome %></h5>
+          <p><%= filme.ano_lancamento.getFullYear() %></p>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  <% } %>
 
-  <h3 class="text-light mx-5 px-5">TODOS OS FILMES:</h3>
-  <ul class="row mx-5">
+  <h3 class="text-light mx-5 px-5">
+    <%= query && query.texto ? `Buscando filmes com ` + query.texto : 'TODOS OS FILMES:' %>
+  </h3>
+  <ul class="row">
     <% filmes.forEach((filme)=> { %>
-    <li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+    <li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
       <a href="/filmes/<%=filme.id%>" class="text-decoration-none text-light">
         <img
           class="filme-img"
@@ -37,9 +54,5 @@
   .filme-img {
     height: 250px;
     object-fit: cover;
-  }
-
-  h3 {
-    padding-bottom: 20px;
   }
 </style>
