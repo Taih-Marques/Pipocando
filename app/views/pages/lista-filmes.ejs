@@ -2,10 +2,11 @@
 
 <body>
   <% if (!query) { %>
-    <ul class="row mx-5">
+    <h5 class="text-light mx-5 px-5">FAVORITOS POR GENERO:</h5>
+    <ul class="row mx-5 ">
       <% generos.forEach((genero)=> { %>
       <li class="col-2">
-        <a href="/filmes?texto=<%=genero.nome%>" class="text-decoration-none text-light">
+        <a href="/filmes?texto=<%=genero.nome%>" class="text-decoration-none link-dark badge bg-success">
           <%= genero.nome_genero %>
           <%= genero.favoritos %>
         </a>
