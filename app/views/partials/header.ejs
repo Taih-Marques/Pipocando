@@ -1,8 +1,7 @@
 <header class="p-3 bg-dark text-white mb-4">
-  <div class="container">
-    <div
-      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-    >
+  <div class="header">
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+      <img class="logo" src="/images/icon.png" />
       <ul
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
@@ -38,3 +37,17 @@
     window.location.href = "/filmes?texto=" + texto;
   }
 </script>
+
+<style>
+  .logo {
+    max-width: 80px;
+  }
+
+  header {
+    justify-content: center;
+  }
+
+  .header {
+    margin: 0 auto;
+  }
+</style>
