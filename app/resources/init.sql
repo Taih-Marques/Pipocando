@@ -117,14 +117,19 @@ VALUES
   (
     'Meu vizinho totoro',
     '1988-04-16',
-    'Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her.',
+    'Two sisters move to the country with their father in order to be closer to
+     their hospitalized mother, and discover the surrounding trees are inhabited
+      by Totoros, magical spirits of the forest. When the youngest runs away from
+      home, the older sister seeks help from the spirits to find her.',
     1,
     'my-neighborn-totoro.jpg'
   ),
   (
     'Spirited away',
     '2001-07-20',
-    'A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.',
+    'A young girl, Chihiro, becomes trapped in a strange new world of spirits.
+     When her parents undergo a mysterious transformation, she must call upon 
+     the courage she never knew she had to free her family.',
     1,
     'spirited-away.jpg'
   ),
@@ -1702,3 +1707,33 @@ FROM
 GROUP BY
   genero.nome,
   filme.nome WITH ROLLUP
+
+
+
+
+  -- COMENTARIOS NA AVALIAÇÃO
+INSERT INTO
+  pipocando.comentario_avaliacao (
+    id_avaliacao,
+    id_usuario,
+    texto,
+    data_comentario
+  )
+VALUES
+  (1, 2,'faco das suas palavras as minhas','2023-11-12'),
+  (2, 3, 'querida, vc esta loka?', '2023-11-12'),
+  (3, 4, 'Concordo plenamente, a trama deixou a desejar', '2023-11-13'),
+  (4, 5, 'Achei as atuações medianas, esperava mais', '2023-11-14'),
+  (5, 6, 'Você captou exatamente o que eu pensei!', '2023-11-15'),
+  (6, 7, 'Eu discordo, a história é envolvente do início ao fim', '2023-11-16'),
+  (7, 8, 'Mal posso esperar para assistir, obrigado pela recomendação', '2023-11-17'),
+  (8, 9, 'Achei o final surpreendente, não vi isso chegando', '2023-11-18'),
+  (9, 10, 'O filme ainda não foi lançado por aqui, estou ansioso para assistir', '2023-11-19'),
+  (10, 11, 'Completamente decepcionado, não recomendaria', '2023-11-20'),
+  (11, 12, 'Eu amei cada minuto, especialmente a reviravolta no final', '2023-11-21'),
+  (12, 13, 'A trama é um pouco previsível, mas ainda assim gostei', '2023-11-22'),
+  (13, 14, 'Parece interessante, vou colocar na minha lista para assistir', '2023-11-23'),
+  (14, 15, 'O filme me fez rir do começo ao fim, recomendo para todos', '2023-11-24'),
+  (15, 16, 'Ainda não assisti, mas estou curioso para ver como é', '2023-11-25'),
+  (16, 1, 'Concordo, a história é um pouco confusa em alguns momentos', '2023-11-26'),
+  (17, 2, 'Eu não gostei muito, achei a trama fraca', '2023-11-27'),

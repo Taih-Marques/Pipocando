@@ -238,8 +238,7 @@ Avaliacao.buscarFavoritosPorGenero = (callback) => {
       INNER JOIN filme ON filme.id = avaliacao.id_filme 
       LEFT JOIN filme_genero ON filme_genero.id_filme = filme.id
       LEFT JOIN genero ON genero.id = filme_genero.id_genero
-    GROUP BY genero.nome, filme.nome WITH ROLLUP
-    ORDER BY favoritos DESC`,
+      GROUP BY genero.nome, filme.nome WITH ROLLUP`,
     (err, res) => {
       if (err) {
         console.log("erro: ", err);

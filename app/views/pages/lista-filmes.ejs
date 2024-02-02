@@ -32,7 +32,7 @@
   <h3 class="text-light mx-5 px-5">
     <%= query && query.texto ? `Buscando filmes com ` + query.texto : 'TODOS OS FILMES:' %>
   </h3>
-  <ul class="row">
+  <ul class="row mx-5">
     <% filmes.forEach((filme)=> { %>
     <li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
       <a href="/filmes/<%=filme.id%>" class="text-decoration-none text-light">
