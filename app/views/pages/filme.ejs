@@ -48,9 +48,9 @@
       class="d-flex flex-column p-1"
       style="flex-basis: 300px; flex-shrink: 0"
     >
-      <span> Média: <%= filme.media_nota %> </span>
-      <span> Menor Nota: <%= filme.menor_nota %></span>
-      <span> Maior Nota: <%= filme.maior_nota %></span>
+    <span class="text-dark decoration-none link-dark badge bg-danger"> Menor Nota de Avaliação: <%= filme.menor_nota %></span>
+    <span class="text-dark decoration-none link-dark badge bg-success">Maior Nota de Avaliação: <%= filme.maior_nota %></span>
+    <span class="text-dark decoration-none link-dark badge bg-info "> Média de Avaliação: <%= filme.media_nota %> </span>
     </div>
   </main>
   <%- include('../partials/avaliacoes', {filme: filme, avaliacoes: avaliacoes,
